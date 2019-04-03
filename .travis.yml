@@ -1,6 +1,10 @@
 language: node_js
 node_js:
   - "10"
+
+before_script:
+  - npm install -g @angular/cli
+
 addons:
   sonarcloud:
     organization: "ghassen-ben-othmen-github" # the key of the org you chose at step #3
