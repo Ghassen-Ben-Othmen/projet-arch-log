@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - "10"
+addons:
+  sonarcloud:
+    organization: "ghassen-ben-othmen-github" # the key of the org you chose at step #3
+    token: $SONAR_TOKEN
+script:
+  # other script steps might be done before running the actual analysis
+  - sonar-scanner
+
+deploy:
+  provider: heroku
+  api_key: $HEROKU_TOKEN
