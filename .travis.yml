@@ -11,8 +11,6 @@ script:
   # other script steps might be done before running the actual analysis
   - sonar-scanner
 
-before_deploy: "sudo npm install -g @angular/cli @angular/compiler-cli @angular-devkit/build-angular typescript"
-
 deploy:
   provider: heroku
   api_key: $HEROKU_TOKEN
