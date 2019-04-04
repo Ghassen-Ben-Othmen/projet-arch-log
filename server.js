@@ -9,16 +9,16 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 
-app.get('/home', (req, res) => {
+app.get('/', (req, res) => {
     res.send('Hello World!')
 });
 
 
 if(process.env.NODE_ENV === 'production'){
-    app.use(express.static('client/dist'))
+    app.use(express.static('client/dist/client'))
 
     app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'))
+        res.sendFile(path.resolve(__dirname, 'client', 'dist', 'client','index.html'))
     })
 }
 
