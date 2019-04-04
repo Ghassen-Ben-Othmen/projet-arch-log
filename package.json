@@ -4,6 +4,7 @@
   "description": "election en ligne - projet architecture logicielle",
   "main": "server.js",
   "scripts": {
+    "preinstall": "npm install -g @angular/cli @angular/compiler-cli typescript",
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon",
     "client": "npm start --prefix client",
