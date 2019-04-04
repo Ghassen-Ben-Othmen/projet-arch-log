@@ -9,7 +9,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 
-app.get('/', (req, res) => {
+app.get('/home', (req, res) => {
     res.send('Hello World!')
 });
 
