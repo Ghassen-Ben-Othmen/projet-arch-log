@@ -31,11 +31,6 @@ mongoose.connect(url ,{ useNewUrlParser: true }, err => {
 // setting cors
 app.use(cors());
 
-// test
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-});
-
 // user route
 app.use('/user', userRoute);
 
