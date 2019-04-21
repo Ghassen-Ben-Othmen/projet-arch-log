@@ -1,0 +1,19 @@
+<div class="side-bar text-center">
+  <div *ngFor="let cat of categorieService.categories" class="btn-group width" mdbDropdown>
+    <button mdbDropdownToggle mdbBtn class="dropdown-toggle waves-dark" mdbWavesEffect>
+      {{cat.nom}}
+    </button>
+
+    <div class="dropdown-menu dropdown-primary width">
+      <p *ngIf="cat.elections.length === 0" class="text-center"><i>Pas d'élections pour cette catégorie!</i></p>
+      <a *ngFor="let elec of cat.elections" class="dropdown-item" (click)="goToelection(elec._id)">{{elec.nom}}</a>
+      
+      <div *ngIf="userService.user.role === 'admin'" class="dropdown-footer">
+        <div class="divider dropdown-divider"></div>
+        <button class="mx-2" type="button" mdbBtn color="danger" size="sm" mdbWavesEffect>Supprimer</button>
+        <button type="button" mdbBtn color="info" size="sm" mdbWavesEffect>Editer</button>
+      </div>
+      
+    </div>
+  </div>
+</div>

@@ -1,0 +1,121 @@
+<div class="container mt-5 intro-2">
+  <div class="row">
+    <div class="col-lg-7 col-md-7 col-sm-12">
+      <section class="my-5">
+
+        <!-- Grid row -->
+        <div class="row">
+
+          <!-- Grid column -->
+          <div class="col-lg-5">
+
+            <!-- Featured image -->
+            <div class="view overlay rounded z-depth-2 mb-lg-0 mb-4 waves-light" mdbWavesEffect>
+              <img class="img-fluid" src="../../../assets/images/wallpaper.jpg" style="height: 300px;"
+                alt="Sample image">
+              <a>
+                <div class="mask rgba-white-slight"></div>
+              </a>
+            </div>
+
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-lg-7">
+
+            <!-- Category -->
+            <a class="indigo-text">
+              <h3 class="font-weight-bold mb-3">
+                <mdb-icon fas icon="person-booth"></mdb-icon>&nbsp;&nbsp;Connectez-vous
+              </h3>
+            </a>
+            <!-- Excerpt -->
+            <p>
+              <mdb-icon fas icon="vote-yea"></mdb-icon>&nbsp;&nbsp;
+              Connectez-vous pour aider votre pays!
+            </p>
+            <p>
+              <mdb-icon fas icon="vote-yea"></mdb-icon>&nbsp;&nbsp;
+              Connectez-vous pour aider votre pays!
+            </p>
+            <p>
+              <mdb-icon fas icon="vote-yea"></mdb-icon>&nbsp;&nbsp;
+              Connectez-vous pour aider votre pays!
+            </p>
+            <p>
+              <mdb-icon fas icon="vote-yea"></mdb-icon>&nbsp;&nbsp;
+              Connectez-vous pour aider votre pays!
+            </p>
+
+          </div>
+          <!-- Grid column -->
+
+        </div>
+        <!-- Grid row -->
+
+      </section>
+    </div>
+
+    <div class="col-lg-5 col-md-5 col-sm-12">
+      <section class="pb-5">
+
+        <div class="row">
+
+          <!--Grid column-->
+          <div class="col-lg-5 my-4">
+
+            <!--Form with header-->
+            <mdb-card style="width: 400px;">
+
+              <mdb-card-body>
+
+                <p class="h1 text-center">
+                   Connexion
+                </p>
+                <br>
+
+                <!--Body-->
+                <form #form="ngForm">
+                  <div class="md-form">
+                    <mdb-icon fas icon="list-ol" class="grey-text"></mdb-icon>
+                    <input required mdbValidate mdbInput type="text" id="form2" class="form-control" [(ngModel)]="user.cin"
+                      name="cin" #cin="ngModel">
+                    <label for="form2">CIN</label>
+                    <mdb-error *ngIf="cin.errors?.required && cin.touched">CIN obligatoire</mdb-error>
+                    <mdb-success *ngIf="cin.valid && (cin.dirty || cin.touched)"></mdb-success>
+                  </div>
+
+                  <div class="md-form">
+                    <mdb-icon fas icon="unlock-alt" class="grey-text"></mdb-icon>
+                    <input required mdbValidate mdbInput type="password" id="form32" class="form-control" [(ngModel)]="user.mdp"
+                      name="mdp" #mdp="ngModel">
+                    <label for="form32">Mot de passe</label>
+                    <mdb-error *ngIf="mdp.errors?.required && mdp.touched">Mot de passe obligatoire</mdb-error>
+                    <mdb-success *ngIf="mdp.valid && (mdp.dirty || mdp.touched)"></mdb-success>
+                  </div>
+
+                  <div class="text-center">
+                    <button [disabled]="form.invalid" (click)="signin()" mdbBtn color="light-blue" class="waves-effect" mdbWavesEffect>
+                      <mdb-icon fas icon="sign-in-alt"></mdb-icon>&nbsp;&nbsp;Connexion
+                    </button>
+                  </div>
+
+                </form>
+                
+              </mdb-card-body>
+
+            </mdb-card>
+            <!--Form with header-->
+
+          </div>
+          <!--Grid column-->
+
+
+        </div>
+
+      </section>
+    </div>
+  </div>
+
+</div>

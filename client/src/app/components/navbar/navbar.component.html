@@ -1,0 +1,53 @@
+<!--Navbar-->
+<mdb-navbar SideClass="navbar fixed-top navbar-expand-lg navbar-light blue-grey lighten-5" [containerInside]="false">
+
+  <!-- Navbar brand -->
+  <mdb-navbar-brand><a class="navbar-brand"><img style="width: 20px; height: 20px;" src="../../../assets/images/Tunisia-Flag-icon.png"
+        alt="" class="img-fluid z-depth-0">
+      </a>
+        
+      </mdb-navbar-brand>
+
+  <!-- Collapsible content -->
+  <links>
+
+    <!-- Links -->
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" mdbWavesEffect>
+          <h3 class="color-red">intikhabet.tn</h3>
+        </a>
+      </li>
+    </ul>
+    <!-- Links -->
+
+    <ul class="navbar-nav ml-auto nav-flex-icons">
+      <li *ngIf="!tokenService.isLoggedIn()" class="nav-item">
+        <a class="nav-link waves-dark" mdbWavesEffect (click)="signin()" >
+          <mdb-icon fas icon="sign-in-alt"></mdb-icon>&nbsp;&nbsp;Connexion
+        </a>
+      </li>
+      <li *ngIf="!tokenService.isLoggedIn()" class="nav-item">
+        <a class="nav-link waves-dark" mdbWavesEffect (click)="signup()">
+          <mdb-icon fas icon="user-plus"></mdb-icon>&nbsp;&nbsp;Inscription
+        </a>
+      </li>
+      <li *ngIf="tokenService.isLoggedIn() && userService.user.role === 'admin'" class="nav-item dropdown" dropdown>
+        <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-dark" mdbWavesEffect>
+          Ajouter<span class="caret"></span></a>
+        <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
+          <a class="dropdown-item waves-dark" mdbWavesEffect href="#">Catégorie</a>
+          <a class="dropdown-item waves-dark" mdbWavesEffect href="#">Election</a>
+        </div>
+      </li>
+      <li *ngIf="tokenService.isLoggedIn()" class="nav-item">
+        <a class="nav-link waves-dark" mdbWavesEffect (click)="logout()">
+          <mdb-icon fas icon="sign-out-alt"></mdb-icon>&nbsp;Déconnexion
+        </a>
+      </li>
+    </ul>
+  </links>
+  <!-- Collapsible content -->
+
+</mdb-navbar>
+<!--/.Navbar-->
