@@ -1,4 +1,4 @@
-<div class="container mt-5 intro-2">
+<div class="container margin">
   <div class="row">
     <div class="col-lg-7 col-md-7 col-sm-12">
       <section class="my-5">
@@ -79,7 +79,7 @@
                 <form #form="ngForm">
                   <div class="md-form">
                     <mdb-icon fas icon="list-ol" class="grey-text"></mdb-icon>
-                    <input required mdbValidate mdbInput type="text" id="form2" class="form-control" [(ngModel)]="user.cin"
+                    <input required mdbValidate mdbInput type="number" min="0" maxlength="8" id="form2" class="form-control" [(ngModel)]="user.cin"
                       name="cin" #cin="ngModel">
                     <label for="form2">CIN</label>
                     <mdb-error *ngIf="cin.errors?.required && cin.touched">CIN obligatoire</mdb-error>

@@ -1,4 +1,4 @@
-<div class="container mt-5 intro-2">
+<div class="container margin">
   <div class="row">
     <div class="col-lg-7 col-md-7 col-sm-12">
       <section class="my-5">
@@ -76,7 +76,7 @@
                 <form #form="ngForm">
                   <div class="md-form">
                     <mdb-icon fas icon="key" class="grey-text"></mdb-icon>
-                    <input required mdbInput mdbValidate type="text" id="form3" class="form-control"
+                    <input required mdbInput mdbValidate type="number" min="0" id="form3" class="form-control"
                       [(ngModel)]="user.code" name="code" #code="ngModel">
                     <label for="form3">Code</label>
                     <mdb-error *ngIf="code.errors?.required && code.touched">Code obligatoire</mdb-error>
@@ -85,7 +85,8 @@
 
                   <div class="md-form">
                     <mdb-icon fas icon="list-ol" class="grey-text"></mdb-icon>
-                    <input required mdbInput mdbValidate type="text" id="form2" class="form-control"
+                    <input required mdbInput mdbValidate type="number" min="0" maxlength="8" id="form2"
+                      class="form-control"
                       [(ngModel)]="user.cin" name="cin" #cin="ngModel">
                     <label for="form2">CIN</label>
                     <mdb-error *ngIf="cin.errors?.required && cin.touched">Cin obligatoire</mdb-error>
