@@ -18,7 +18,7 @@ export class UserService {
               private notifService: ToastrService,
               private router: Router,
               private tokenService: TokenService) {
-    this.user = new User();
+    this.user = tokenService.getUserFromToken();
    }
 
   signup(user: User): void{
@@ -41,7 +41,6 @@ export class UserService {
       this.tokenService.saveToken(token);
       this.notifService.success('Connexion réussie', 'Connexion', {progressBar: true});
       this.router.navigate(['home']);
-      console.log(this.user);
     },
     err => {
       console.log(err);

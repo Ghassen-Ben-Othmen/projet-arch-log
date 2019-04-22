@@ -1,0 +1,58 @@
+
+  <div class="row m-auto">
+    <div class="col-lg-5 col-md-5 col-sm-12">
+      <section class="pb-5">
+
+        <div class="row">
+
+          <!--Grid column-->
+          <div class="col-lg-5 my-4">
+
+            <!--Form with header-->
+            <mdb-card style="width: 400px;">
+
+              <mdb-card-body>
+
+                <p class="h1 text-center">
+                  Editer
+                </p>
+                <br>
+
+                <!--Body-->
+                <form #form="ngForm">
+            
+                  <div class="md-form">
+                    <mdb-icon fas icon="file-signature" class="grey-text"></mdb-icon>
+                    <input required mdbValidate mdbInput type="text" id="form32" class="form-control" [(ngModel)]="categorie.nom"
+                    #nom="ngModel" name="nom"
+                      >
+                    <label for="form32">Nom</label>
+                    <mdb-error *ngIf="nom.errors?.required && nom.touched">Champ obligatoire</mdb-error>
+                    <mdb-success *ngIf="nom.valid && (nom.dirty || nom.touched)"></mdb-success>
+                  </div>
+
+                  <div class="text-center">
+                    <button [disabled]="form.invalid" mdbBtn color="light-blue" class="waves-effect"
+                      mdbWavesEffect (click)="update()">
+                      <mdb-icon fas icon="edit"></mdb-icon>&nbsp;&nbsp;Editer
+                    </button>
+                  </div>
+
+                </form>
+
+              </mdb-card-body>
+
+            </mdb-card>
+            <!--Form with header-->
+
+          </div>
+          <!--Grid column-->
+
+
+        </div>
+
+      </section>
+    </div>
+  </div>
+
+

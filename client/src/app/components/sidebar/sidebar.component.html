@@ -4,14 +4,14 @@
       {{cat.nom}}
     </button>
 
-    <div class="dropdown-menu dropdown-primary width">
+    <div class="dropdown-menu width text-center">
       <p *ngIf="cat.elections.length === 0" class="text-center"><i>Pas d'élections pour cette catégorie!</i></p>
       <a *ngFor="let elec of cat.elections" class="dropdown-item" (click)="goToelection(elec._id)">{{elec.nom}}</a>
       
       <div *ngIf="userService.user.role === 'admin'" class="dropdown-footer">
         <div class="divider dropdown-divider"></div>
-        <button class="mx-2" type="button" mdbBtn color="danger" size="sm" mdbWavesEffect>Supprimer</button>
-        <button type="button" mdbBtn color="info" size="sm" mdbWavesEffect>Editer</button>
+        <button class="mx-2" type="button" mdbBtn color="danger" size="sm" mdbWavesEffect (click)="confirmModalDelete(cat._id)">Supprimer</button>
+        <button type="button" mdbBtn color="info" size="sm" mdbWavesEffect (click)="updateForm(cat._id)">Editer</button>
       </div>
       
     </div>

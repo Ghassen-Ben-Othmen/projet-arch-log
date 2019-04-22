@@ -143,4 +143,12 @@ router.put('/update/:id', verifToken, (req, res) => {
     })
 });
 
+// TODOS
+
+// add candidat + get election 
+
+// update nom candidat
+
+// update image candidat
+
 module.exports = router;

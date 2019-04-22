@@ -1,0 +1,29 @@
+<div class="modal-content">
+  <div class="modal-header text-center">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">×</span>
+    </button>
+    <h4 class="modal-title w-100" id="myModalLabel">Ajouter Catégorie</h4>
+  </div>
+  <form #form="ngForm">
+    <div class="modal-body mx-3">
+
+      <div class="md-form mb-5">
+        <mdb-icon fas icon="file-signature grey-text"></mdb-icon>
+        <input required type="text" id="defaultForm-nom" class="form-control validate" mdbInput
+          [(ngModel)]="categorie.nom" name="categorie" #nom="ngModel">
+        <label data-error="wrong" data-success="right" for="defaultForm-nom">Nom</label>
+        <mdb-error *ngIf="nom.errors?.required && nom.touched">Champ obligatoire</mdb-error>
+        <mdb-success *ngIf="nom.valid && (nom.dirty || nom.touched)"></mdb-success>
+      </div>
+
+    </div>
+    <div class="modal-footer d-flex justify-content-center">
+      <button type="button" mdbBtn color="light" class="waves-light" aria-label="Close" (click)="modalRef.hide()"
+        mdbWavesEffect>Annuler</button>
+      <button [disabled]="form.invalid" type="button" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect
+        (click)="addCategorie()">Ajouter!</button>
+    </div>
+  </form>
+  
+</div>

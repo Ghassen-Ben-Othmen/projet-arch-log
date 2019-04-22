@@ -13,6 +13,11 @@ import { SignupComponent } from './components/signup/signup.component';
 import { SigninComponent } from './components/signin/signin.component';
 import { HomeComponent } from './components/home/home.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { AddCategorieComponent } from './components/home/add-categorie/add-categorie.component';
+import { ConfirmDeleteComponent } from './components/confirm-delete/confirm-delete.component';
+import { UpdateCategorieComponent } from './components/home/update-categorie/update-categorie.component';
+import { AddElectionComponent } from './components/home/add-election/add-election.component';
+import { UpdateElectionComponent } from './components/home/update-election/update-election.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +26,12 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     SignupComponent,
     SigninComponent,
     HomeComponent,
-    SidebarComponent
+    SidebarComponent,
+    AddCategorieComponent,
+    ConfirmDeleteComponent,
+    UpdateCategorieComponent,
+    AddElectionComponent,
+    UpdateElectionComponent
   ],
   imports: [
     BrowserModule,
@@ -31,6 +41,11 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     HttpClientModule,
     FormsModule,
     ToastrModule.forRoot()
+  ],
+  entryComponents: [
+    AddCategorieComponent,
+    ConfirmDeleteComponent,
+    UpdateCategorieComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

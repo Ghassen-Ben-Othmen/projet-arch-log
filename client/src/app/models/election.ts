@@ -11,7 +11,7 @@ export class Election {
 
     public _id?: string;
     public nom: string;
-    public id_election?: string;
+    public id_categorie?: string;
     public date_debut: Date;
     public date_fin: Date;
     public candidat: Candidat[];

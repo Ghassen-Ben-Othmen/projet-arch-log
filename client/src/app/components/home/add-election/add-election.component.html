@@ -1,0 +1,79 @@
+<div class="row m-auto">
+  <div class="col-lg-5 col-md-5 col-sm-12">
+    <section class="pb-5">
+
+      <div class="row">
+
+        <!--Grid column-->
+        <div class="col-lg-5 my-4">
+
+          <!--Form with header-->
+          <mdb-card style="width: 400px;">
+            <mdb-card-body>
+              <p class="h1 text-center">
+                Election
+              </p>
+              <br>
+              <!--Body-->
+              <form #form="ngForm">
+
+                <div class="btn-group" mdbDropdown>
+                  <button type="button" mdbBtn color="light" class="waves-light" mdbWavesEffect>{{categorie}}</button>
+                  <button type="button" mdbDropdownToggle mdbBtn color="light"
+                    class="dropdown-toggle dropdown-toggle-split px-3 waves-light" mdbWavesEffect></button>
+                  <div class="dropdown-menu">
+                    <a *ngFor="let cat of categorieService.categories" (click)="setCategorie(cat._id, cat.nom)" class="dropdown-item">{{cat.nom}}</a>
+
+                  </div>
+                </div>
+
+                <div class="md-form">
+                  <mdb-icon fas icon="file-signature" class="grey-text"></mdb-icon>
+                  <input required mdbValidate mdbInput type="text" id="form1" class="form-control"
+                    [(ngModel)]="election.nom" #nom="ngModel" name="nom">
+                  <label for="form1">Nom</label>
+                  <mdb-error *ngIf="nom.errors?.required && nom.touched">Champ obligatoire</mdb-error>
+                  <mdb-success *ngIf="nom.valid && (nom.dirty || nom.touched)"></mdb-success>
+                </div>
+
+                <div class="md-form">
+                  <mdb-icon fas icon="calendar-alt" class="grey-text"></mdb-icon>
+                  <input required mdbValidate mdbInput type="date" id="form3" class="form-control mt-5"
+                    [(ngModel)]="election.date_debut" #date_debut="ngModel" name="date_debut">
+                  <label for="form3">Date Début</label>
+                  <mdb-error *ngIf="date_debut.errors?.required && date_debut.touched">Champ obligatoire</mdb-error>
+                  <mdb-success *ngIf="date_debut.valid && (date_debut.dirty || date_debut.touched)"></mdb-success>
+                </div>
+
+                <div class="md-form">
+                  <mdb-icon fas icon="calendar-alt" class="grey-text"></mdb-icon>
+                  <input required mdbValidate mdbInput type="date" id="form4" class="form-control mt-5"
+                    [(ngModel)]="election.date_fin" #date_fin="ngModel" name="date_fin">
+                  <label for="form4">Date Fin</label>
+                  <mdb-error *ngIf="date_fin.errors?.required && date_fin.touched">Champ obligatoire</mdb-error>
+                  <mdb-success *ngIf="date_fin.valid && (date_fin.dirty || date_fin.touched)"></mdb-success>
+                </div>
+
+
+                <div class="text-center">
+                  <button (click)="addElection()" [disabled]="form.invalid" mdbBtn color="light-blue" class="waves-effect" mdbWavesEffect>
+                    <mdb-icon fas icon="plus"></mdb-icon>&nbsp;&nbsp;Ajouter
+                  </button>
+                </div>
+
+              </form>
+            </mdb-card-body>
+          </mdb-card>
+          <!--Form with header-->
+
+        </div>
+        <!--Grid column-->
+
+
+      </div>
+
+    </section>
+  </div>
+</div>
+
+ 

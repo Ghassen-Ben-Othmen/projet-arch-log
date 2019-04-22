@@ -107,7 +107,7 @@ router.post('/auth', (req, res) => {
         else{
             if(doc.mdp === mdp){
 
-                const sign_token = jwt.sign({_id: doc._id},'secret');
+                const sign_token = jwt.sign({_id: doc._id, role: doc.role},'secret');
 
                 const token = `Bearer ${sign_token}`;
 

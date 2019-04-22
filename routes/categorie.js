@@ -44,7 +44,7 @@ router.get('/list', verifToken, (req, res) => {
 });
 
 // get categorie by id
-router.get('/list/:id', verifToken, (req, res) => {
+router.get('/:id', verifToken, (req, res) => {
 
     let id = req.params.id;
 

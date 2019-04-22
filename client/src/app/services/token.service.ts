@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { User } from '../models/user';
+import * as jwt_decode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +15,19 @@ export class TokenService {
       return true;
     }
     return false;
+  }
+
+  getUserFromToken(): User{
+    if(this.isLoggedIn()){
+      const token = this.getToken();
+      const from_token = jwt_decode(token);
+      let user: User = new User();
+      user._id = from_token._id;
+      user.role = from_token.role;
+      return user;
+    }
+    return null;
+    
   }
 
   getToken(): string{
