@@ -52,7 +52,7 @@ if(process.env.NODE_ENV === 'production'){
 
 
 // setting up port
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 
 // setting app server
 app.listen(PORT, () => {
