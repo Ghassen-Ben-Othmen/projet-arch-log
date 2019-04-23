@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, isDevMode } from '@angular/core';
 import { Election } from '../models/election';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -9,7 +9,7 @@ import { TokenService } from './token.service';
 })
 export class ElectionService {
 
-  private uri = "http://localhost:3000/election";
+  private uri = isDevMode() ? 'http://localhost:3000' : window.location.origin;
 
   private elections: Election[];
   private headers: HttpHeaders;
@@ -23,6 +23,6 @@ export class ElectionService {
   }
 
   addElection(election: Election): Observable<any>{
-    return this.http.post(`${this.uri}/add`, {election}, {headers: this.headers});
+    return this.http.post(`${this.uri}/election/add`, {election}, {headers: this.headers});
   }
 }

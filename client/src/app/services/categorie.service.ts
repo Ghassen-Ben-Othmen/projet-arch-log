@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, isDevMode } from '@angular/core';
 import { Categorie } from '../models/categorie';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TokenService } from './token.service';
@@ -13,7 +13,7 @@ export class CategorieService {
   private categories: Categorie[];
   private headers: HttpHeaders;
 
-  private uri = 'http://localhost:3000/categorie';
+  private uri = isDevMode() ? 'http://localhost:3000' : window.location.origin;
 
   constructor(private http: HttpClient,
               private tokenService: TokenService,
@@ -26,7 +26,7 @@ export class CategorieService {
 
   getCategories(): void{
 
-    this.http.get(`${this.uri}/list`, {headers: this.headers}).subscribe(res => {
+    this.http.get(`${this.uri}/categorie/list`, {headers: this.headers}).subscribe(res => {
       const key = 'categories';
       this.categories = res[key];
     },
@@ -43,17 +43,17 @@ export class CategorieService {
       }
     }
 
-    return this.http.post(`${this.uri}/add`, request, {headers: this.headers});
+    return this.http.post(`${this.uri}/categorie/add`, request, {headers: this.headers});
   }
 
 
   deleteCategorie(id: string): Observable<any>{
     
-    return this.http.delete(`${this.uri}/delete/${id}`, {headers: this.headers});
+    return this.http.delete(`${this.uri}/categorie/delete/${id}`, {headers: this.headers});
   }
 
   getCategorieById(id: string): Observable<Categorie>{
-    return this.http.get<Categorie>(`${this.uri}/${id}`, {headers: this.headers});
+    return this.http.get<Categorie>(`${this.uri}/categorie/${id}`, {headers: this.headers});
   }
 
   updateCategorie(id: string ,categorie: Categorie): Observable<any>{
@@ -61,6 +61,6 @@ export class CategorieService {
       _id: categorie._id,
       nom: categorie.nom
     }
-    return this.http.put(`${this.uri}/update/${id}`, {categorie: req}, {headers: this.headers});
+    return this.http.put(`${this.uri}/categorie/update/${id}`, {categorie: req}, {headers: this.headers});
   }
 }

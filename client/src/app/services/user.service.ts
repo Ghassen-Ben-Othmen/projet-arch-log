@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, isDevMode } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../models/user';
 import { ToastrService } from 'ngx-toastr';
@@ -12,7 +12,7 @@ export class UserService {
 
   private user: User;
 
-  private uri = 'http://localhost:3000';
+  private uri = isDevMode() ? 'http://localhost:3000' : window.location.origin;
 
   constructor(private http: HttpClient,
               private notifService: ToastrService,
