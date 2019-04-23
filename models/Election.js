@@ -9,9 +9,9 @@ const electionSchema = mongoose.Schema({
     date_fin: {type: Date, required: true },
     candidat: [{
         _id: {type: mongoose.Schema.Types.ObjectId, required: true},
-        nom: {type: String, required: true},
-        image: {type: String, required: true},
-        nb_votes: {type: Number, required: true}
+        nom: {type: String},
+        image: {type: String},
+        nb_votes: {type: Number}
     }]
 });
 

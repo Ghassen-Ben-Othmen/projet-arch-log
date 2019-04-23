@@ -6,7 +6,7 @@
 
     <div class="dropdown-menu width text-center">
       <p *ngIf="cat.elections.length === 0" class="text-center"><i>Pas d'élections pour cette catégorie!</i></p>
-      <a *ngFor="let elec of cat.elections" class="dropdown-item" (click)="goToelection(elec._id)">{{elec.nom}}</a>
+      <a *ngFor="let elec of cat.elections" class="dropdown-item" (click)="infoElection(elec._id)">{{elec.nom}}</a>
       
       <div *ngIf="userService.user.role === 'admin'" class="dropdown-footer">
         <div class="divider dropdown-divider"></div>

@@ -89,10 +89,13 @@ router.delete('/delete/:id', verifToken, (req, res) => {
         else{
             categorieModel.deleteOne({_id:id}).exec()
             .then(result => {
-                res.status(200).json({
-                    message: 'Categorie supprimé',
-                    count: result.deletedCount
+                electionModel.deleteMany({id_categorie: id}).exec().then(p => {
+                    res.status(200).json({
+                        message: 'Categorie supprimé',
+                        count: result.deletedCount
+                    });
                 });
+                
             })
             .catch(err => {
                 console.log(err);

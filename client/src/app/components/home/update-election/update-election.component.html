@@ -1,12 +1,12 @@
-<!-- <div class="row">
+<div class="row">
   <div class="col-md-12 col-lg-12 col-sm-12">
     <button type="button" mdbBtn color="info" class="float-right" mdbWavesEffect
       (click)="ajouterCandidat()"
     >Ajouter candidat</button>
   </div>
-</div> -->
+</div>
 
-<!-- <div class="row">
+<div class="row">
   <div class="col-md-6 col-lg-6 col-sm-12">
 
     <section class="pb-5 pl-5 float-right">
@@ -23,11 +23,12 @@
             <form #form="ngForm">
 
               <div class="btn-group" mdbDropdown>
-                <button type="button" mdbBtn color="light" class="waves-light" mdbWavesEffect>Catégorie</button>
+                <button type="button" mdbBtn color="light" class="waves-light" mdbWavesEffect>{{categorie}}</button>
                 <button type="button" mdbDropdownToggle mdbBtn color="light"
                   class="dropdown-toggle dropdown-toggle-split px-3 waves-light" mdbWavesEffect></button>
                 <div class="dropdown-menu">
-                  <a *ngFor="let cat of categorieService.categories" class="dropdown-item">{{cat.nom}}</a>
+                  <a *ngFor="let cat of categorieService.categories" class="dropdown-item"
+                    (click)="setCategorie(cat._id, cat.nom)">{{cat.nom}}</a>
 
                 </div>
               </div>
@@ -61,7 +62,9 @@
 
 
               <div class="text-center">
-                <button [disabled]="form.invalid" mdbBtn color="light-blue" class="waves-effect" mdbWavesEffect>
+                <button [disabled]="form.invalid" mdbBtn color="light-blue" class="waves-effect" mdbWavesEffect
+                  (click)="updateElection()"
+                >
                   <mdb-icon fas icon="edit"></mdb-icon>&nbsp;&nbsp;Editer
                 </button>
               </div>
@@ -78,33 +81,32 @@
   <div class="col-md-6 col-lg-6 col-sm-12">
     <p class="pt-5 ml-5" *ngIf="election.candidat.length === 0"><i>Pas de candidats pour cette élection!</i></p>
     <section *ngFor="let candidat of election.candidat" class="pb-5 pl-5 float-right">
-
-
-      
       <div class="col-lg-5 my-4">
-        
-        <mdb-card class="mb-5" style="width: 350px; height: 150px;">
+        <mdb-card class="mb-5" style="width: 350px; height: 250px;">
           <mdb-card-body>
             <p class="h3 text-center">
               Candidat
-              <button type="button" class="close" aria-label="Close" (click)="deleteCandidat(candidat)">
+              <button type="button" class="close" aria-label="Close" (click)="deleteCandidat(candidat._id)">
                 <span aria-hidden="true">×</span>
               </button>
+                  
             </p>
+            <div *ngIf="candidat.image !== ''" class="text-center">
+              <img style="width: 80px; height: 80px;" [src]="img_src+'/election/file/'+election._id+candidat._id" class="rounded"
+                alt="...">
+            </div>
             <br>
             
             <form #form="ngForm">
               <div class="md-form">
                 <mdb-icon fas icon="file-signature" class="grey-text"></mdb-icon>
-                <input required mdbValidate mdbInput type="text" id="form5" class="form-control">
+                <input (change)="updateNomCandidat(candidat)" mdbInput type="text" id="form5" class="form-control" [(ngModel)]="candidat.nom" name="nom">
                 <label for="form5">Nom</label>
-                <mdb-error *ngIf="nom.errors?.required && nom.touched">Champ obligatoire</mdb-error>
-              <mdb-success *ngIf="nom.valid && (nom.dirty || nom.touched)"></mdb-success>
               </div>
 
               <div class="md-form">
                 <mdb-icon far icon="image" class="grey-text"></mdb-icon>
-                <input type="file" class="form-control-file">
+                <input type="file" class="form-control-file" (change)="uploadFile($event, candidat._id)">
               </div>
             </form>
           </mdb-card-body>
@@ -115,4 +117,4 @@
     </section>
 
   </div>
-</div> -->
+</div>

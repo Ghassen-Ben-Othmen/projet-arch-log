@@ -1,5 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const IncomingForm = require("formidable").IncomingForm;
+const path = require('path');
+const fs = require('fs');
 
 const electionModel = require('../models/Election');
 const categorieModel = require('../models/Categorie');
@@ -22,10 +25,6 @@ router.post('/add', verifToken, (req, res) => {
             });
         }
         else{
-            for(i=0; i< election['candidat'].length; i++){
-                election['candidat'][i]['_id'] = new mongoose.Types.ObjectId();
-            }
-        
             election.save().then(doc => {
                 res.status(201).json({
                     election: doc
@@ -125,10 +124,6 @@ router.put('/update/:id', verifToken, (req, res) => {
             });
         }
         else{
-            for(i=0; i< election['candidat'].length; i++){
-                if(!election['candidat'][i]['_id'])
-                    election['candidat'][i]['_id'] = new mongoose.Types.ObjectId();
-            }
             electionModel.updateOne({_id: id}, election).exec()
             .then(result => {
                 election['_id'] = id;
@@ -145,10 +140,173 @@ router.put('/update/:id', verifToken, (req, res) => {
 
 // TODOS
 
-// add candidat plus get election 
+// add candidat + get election
+router.put('/add-candidat', verifToken, (req, res) => {
+
+    let candidat = req.body.candidat;
+    let id_election = req.body.id_election;
+
+    electionModel.findOne({_id: id_election}).lean().exec()
+    .then(doc => {
+        if(!doc){
+            res.status(400).json({
+                message: 'Election introuvable'
+            });
+        }
+        else{
+            candidat._id = new mongoose.Types.ObjectId();
+            doc.candidat.unshift(candidat);
+
+            let election = new electionModel(doc);
+            
+            electionModel.updateOne({_id: election._id}, election).exec()
+            .then(result => {
+                res.status(200).json({
+                    election
+                });
+            });
+        }
+    })
+    .catch(err => {
+        console.log(err);
+    })
+});
+
+// delete candidat
+router.put('/delete/candidat', verifToken, (req, res) => {
+    const id_candidat = req.body.id_candidat;
+    const id_election = req.body.id_election;
+
+    electionModel.findOne({
+            _id: id_election
+        }).lean().exec()
+        .then(doc => {
+            if (!doc) {
+                res.status(400).json({
+                    message: 'Election introuvable'
+                });
+            } else {
+                doc.candidat = doc.candidat.filter(c => c._id != id_candidat);
+
+                let election = new electionModel(doc);
+
+                electionModel.updateOne({
+                        _id: election._id
+                    }, election).exec()
+                    .then(result => {
+                        res.status(200).json({
+                            election
+                        });
+                    });
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        })
+
+});
 
 // update nom candidat
+router.put('/update-nom-candidat', verifToken, (req, res) => {
+
+    let nom = req.body.nom;
+    let id_election = req.body.id_election;
+    let id_candidat = req.body.id_candidat;
+
+    electionModel.findOne({
+            _id: id_election
+        }).lean().exec()
+        .then(doc => {
+            if (!doc) {
+                res.status(400).json({
+                    message: 'Election introuvable'
+                });
+            } else {
+                doc.candidat = doc.candidat.map(c => {
+                    if(c._id == id_candidat){
+                        
+                        c.nom = nom;
+                    }
+                    return c;
+                });
+
+                let election = new electionModel(doc);
+
+                electionModel.updateOne({
+                        _id: election._id
+                    }, election).exec()
+                    .then(result => {
+                        res.status(200).json({
+                            election
+                        });
+                    });
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        })
+});
 
 // update image candidat
+router.put('/upload/:id_election/:id_candidat', verifToken, (req, res) => {
+    let form = new IncomingForm();
+
+    let id_election = req.params.id_election;
+    let id_candidat = req.params.id_candidat;
+
+    
+    form.parse(req);
+
+    form.on('fileBegin', function (name, file) {
+        id = id_election+id_candidat+'.jpg';
+        file.path =  path.join(__dirname, '..', 'images', id);
+    });
+
+    form.on("file", (field, file) => {
+        
+    });
+
+    form.on("end", () => {
+        console.log("file uploaded");
+        electionModel.findOne({_id: id_election}).lean().exec()
+        .then(doc => {
+            if (!doc) {
+                res.status(400).json({
+                    message: 'Election introuvable'
+                });
+            } else {
+                doc.candidat = doc.candidat.map(c => {
+                    if(c._id == id_candidat){
+                        c.image = id;
+                    }
+                    return c;
+                });
+
+                let election = new electionModel(doc);
+
+                electionModel.updateOne({
+                        _id: election._id
+                    }, election).exec()
+                    .then(result => {
+                        res.status(200).json({
+                            election
+                        });
+                    });
+
+            }
+
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    });
+});
+
+
+router.get('/file/:id', (req, res) => {
+
+    const id = req.params.id;
+    res.sendFile(path.resolve(__dirname, '..', 'images', id+'.jpg'));
+});
 
 module.exports = router;

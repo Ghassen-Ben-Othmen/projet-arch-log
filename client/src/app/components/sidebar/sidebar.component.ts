@@ -38,8 +38,8 @@ export class SidebarComponent implements OnInit {
     this.categorieService.getCategories();
   }
 
-  goToelection(id: string): void{
-    console.log(id);
+  infoElection(id: string): void{
+    this.router.navigate(['home/info-election', id]);
   }
 
   confirmModalDelete(id: string): void{
@@ -51,6 +51,7 @@ export class SidebarComponent implements OnInit {
         this.categorieService.deleteCategorie(id).subscribe(res => {
           this.modalRef.hide();
           this.categorieService.getCategories();
+          this.router.navigate(['home']);
           this.notifService.success('Catégorie supprimée', 'Catégorie', {progressBar: true});
         },
         err => {

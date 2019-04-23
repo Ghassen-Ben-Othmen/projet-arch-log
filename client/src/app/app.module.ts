@@ -18,6 +18,7 @@ import { ConfirmDeleteComponent } from './components/confirm-delete/confirm-dele
 import { UpdateCategorieComponent } from './components/home/update-categorie/update-categorie.component';
 import { AddElectionComponent } from './components/home/add-election/add-election.component';
 import { UpdateElectionComponent } from './components/home/update-election/update-election.component';
+import { InfoElectionComponent } from './components/home/info-election/info-election.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { UpdateElectionComponent } from './components/home/update-election/updat
     ConfirmDeleteComponent,
     UpdateCategorieComponent,
     AddElectionComponent,
-    UpdateElectionComponent
+    UpdateElectionComponent,
+    InfoElectionComponent
   ],
   imports: [
     BrowserModule,

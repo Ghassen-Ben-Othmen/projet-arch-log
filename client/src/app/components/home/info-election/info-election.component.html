@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="col-md-12">
+    <p class="lead float-left pt-3">
+      {{election.nom}} :
+      <span *ngIf="checkDate() === 'now'">En cours!</span>
+      <span *ngIf="checkDate() === 'not yet'">Pas encore!</span>
+      <span *ngIf="checkDate() === 'ended'">Terminée!</span>
+    </p>
+    <div class="float-right">
+      <button type="button" mdbBtn color="info" mdbWavesEffect (click)="updateElectionForm()">Editer</button>
+      <button type="button" mdbBtn color="danger" mdbWavesEffect (click)="deleteElectionModal()">Supprimer</button>
+    </div>
+  </div>
+</div>
+

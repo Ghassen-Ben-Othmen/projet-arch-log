@@ -3,6 +3,7 @@ import { Candidat } from './candidat';
 export class Election {
 
     constructor(){
+        this._id = null;
         this.nom = '';
         this.date_debut = null;
         this.date_fin = null;
