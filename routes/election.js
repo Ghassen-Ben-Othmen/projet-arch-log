@@ -145,7 +145,7 @@ router.put('/update/:id', verifToken, (req, res) => {
 
 // TODOS
 
-// add candidat + get election 
+// add candidat plus get election 
 
 // update nom candidat
 
