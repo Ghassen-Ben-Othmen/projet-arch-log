@@ -5,20 +5,21 @@
     >Ajouter candidat</button>
   </div>
 </div> -->
-<div class="row">
+
+<!-- <div class="row">
   <div class="col-md-6 col-lg-6 col-sm-12">
 
     <section class="pb-5 pl-5 float-right">
-      <!--Grid column-->
+      
       <div class="col-lg-5 my-4">
-        <!--Form with header-->
+        
         <mdb-card style="width: 400px;">
           <mdb-card-body>
             <p class="h1 text-center">
               Election
             </p>
             <br>
-            <!--Body-->
+            
             <form #form="ngForm">
 
               <div class="btn-group" mdbDropdown>
@@ -68,9 +69,9 @@
             </form>
           </mdb-card-body>
         </mdb-card>
-        <!--Form with header-->
+        
       </div>
-      <!--Grid column-->
+      
     </section>
   </div>
 
@@ -79,9 +80,9 @@
     <section *ngFor="let candidat of election.candidat" class="pb-5 pl-5 float-right">
 
 
-      <!--Grid column-->
+      
       <div class="col-lg-5 my-4">
-        <!--Form with header-->
+        
         <mdb-card class="mb-5" style="width: 350px; height: 150px;">
           <mdb-card-body>
             <p class="h3 text-center">
@@ -91,14 +92,14 @@
               </button>
             </p>
             <br>
-            <!--Body-->
+            
             <form #form="ngForm">
               <div class="md-form">
                 <mdb-icon fas icon="file-signature" class="grey-text"></mdb-icon>
                 <input required mdbValidate mdbInput type="text" id="form5" class="form-control">
                 <label for="form5">Nom</label>
-                <!-- <mdb-error *ngIf="nom.errors?.required && nom.touched">Champ obligatoire</mdb-error>
-              <mdb-success *ngIf="nom.valid && (nom.dirty || nom.touched)"></mdb-success> -->
+                <mdb-error *ngIf="nom.errors?.required && nom.touched">Champ obligatoire</mdb-error>
+              <mdb-success *ngIf="nom.valid && (nom.dirty || nom.touched)"></mdb-success>
               </div>
 
               <div class="md-form">
@@ -108,10 +109,10 @@
             </form>
           </mdb-card-body>
         </mdb-card>
-        <!--Form with header-->
+        
       </div>
-      <!--Grid column-->
+    
     </section>
 
   </div>
-</div>
+</div> -->

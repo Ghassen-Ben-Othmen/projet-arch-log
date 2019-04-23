@@ -27,7 +27,7 @@ export class SidebarComponent implements OnInit {
     animated: true
   };
 
-  constructor(private categorieService: CategorieService,
+  constructor(public categorieService: CategorieService,
               private userService: UserService,
               private modalService: MDBModalService,
               private notifService: ToastrService,

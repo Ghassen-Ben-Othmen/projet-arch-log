@@ -15,8 +15,8 @@ export class NavbarComponent implements OnInit {
   public modalRef: MDBModalRef;
 
   constructor(private router: Router,
-              private tokenService: TokenService,
-              private userService: UserService,
+              public tokenService: TokenService,
+              public userService: UserService,
               private modalService: MDBModalService,) { }
 
   ngOnInit() {

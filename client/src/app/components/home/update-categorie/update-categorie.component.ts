@@ -14,7 +14,7 @@ export class UpdateCategorieComponent implements OnInit {
   public categorie: Categorie;
 
   constructor(private activatedRoute: ActivatedRoute,
-              private categorieService: CategorieService,
+              public categorieService: CategorieService,
               private notifService: ToastrService,
               private router: Router) {
     this.categorie = new Categorie();

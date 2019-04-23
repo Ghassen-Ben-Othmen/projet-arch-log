@@ -10,7 +10,7 @@ import { TokenService } from './token.service';
 })
 export class UserService {
 
-  private user: User;
+  public user: User;
 
   private uri = isDevMode() ? 'http://localhost:3000' : window.location.origin;
 

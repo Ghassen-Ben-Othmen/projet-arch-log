@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 })
 export class CategorieService {
 
-  private categories: Categorie[];
+  public categories: Categorie[];
   private headers: HttpHeaders;
 
   private uri = isDevMode() ? 'http://localhost:3000' : window.location.origin;

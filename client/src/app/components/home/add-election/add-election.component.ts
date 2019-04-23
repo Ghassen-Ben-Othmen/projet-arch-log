@@ -16,7 +16,7 @@ export class AddElectionComponent implements OnInit {
   public election: Election;
   public categorie: string;
 
-  constructor(private categorieService: CategorieService,
+  constructor(public categorieService: CategorieService,
               private notifService: ToastrService,
               private electionService: ElectionService,
               private router: Router) {
