@@ -20,7 +20,7 @@ export class UpdateElectionComponent implements OnInit {
   constructor(private electionService: ElectionService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
-              private categorieService: CategorieService,
+              public categorieService: CategorieService,
               private notifService: ToastrService) { 
     this.election = new Election();
     this.election.date_debut = new Date(this.election.date_debut);
