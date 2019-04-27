@@ -29,7 +29,7 @@ export class InfoElectionComponent implements OnInit {
               private categorieService: CategorieService,
               private notifService: ToastrService,
               private userService : UserService,
-              private tokenService : TokenService,
+              public tokenService : TokenService,
               private userVotesService : UserVotesService) {
     this.election = new Election();
    }
