@@ -6,9 +6,6 @@ import { Router } from '@angular/router';
 import { TokenService } from './token.service';
 import { Observable } from 'rxjs';
 
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json','Access-Control-Allow-Methods': '*', 'Access-Control-Allow-Origin': '*' })
-};
 
 @Injectable({
   providedIn: 'root'
@@ -60,7 +57,7 @@ export class UserService {
 
   //get user info
   getUser(id : string): Observable<User>{
-    return this.http.get<User>(`${this.uri}/user/${id}`, httpOptions);
+    return this.http.get<User>(`${this.uri}/user/${id}`, {headers: this.headers});
   }
 
 
