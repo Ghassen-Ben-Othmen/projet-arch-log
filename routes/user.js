@@ -91,6 +91,23 @@ router.get('/list', (req ,res) => {
     })
 });
 
+//get user
+router.get('/:id', (req, res)=>{
+   let id= req.params.id;
+    userModel.findOne({_id: id}).exec()
+    .then(user=>{
+            res.status(200).json({
+                user
+                
+            });
+          
+        
+    })
+    .catch(err=>{
+        console.log(err);
+    })
+})
+
 
 // login user
 router.post('/auth', (req, res) => {
@@ -127,6 +144,40 @@ router.post('/auth', (req, res) => {
     .catch(err => {
         console.log(err);
     });
+});
+
+// add election
+router.put('/add-election/:id', (req, res) => {
+
+    let id_election = req.params.id_election;
+    let user = req.body.user;
+    let id_user = user._id;
+    console.log(id_user);
+
+    userModel.findOne({_id: id_user}).lean().exec()
+    .then(doc => {
+        if(!doc){
+            res.status(400).json({
+                message: 'Utilisateur introuvable'
+            });
+        }
+        else{
+            election._id = new mongoose.Types.ObjectId();
+            doc.votes.unshift(id_election);
+
+            let user = new userModel(doc);
+            
+            userModel.updateOne({_id: user._id}, user).exec()
+            .then(result => {
+                res.status(200).json({
+                    user
+                });
+            });
+        }
+    })
+    .catch(err => {
+        console.log(err);
+    })
 });
 
 

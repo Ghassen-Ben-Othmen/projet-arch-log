@@ -8,6 +8,7 @@ const url = require('./config/keys');
 const userRoute = require('./routes/user');
 const categorieRoute = require('./routes/categorie');
 const electionRoute = require('./routes/election');
+const userVotesRoute = require('./routes/uservotes');
 
 // setting app 
 const app = express();
@@ -39,6 +40,9 @@ app.use('/categorie', categorieRoute);
 
 // election route
 app.use('/election', electionRoute);
+
+//userVotes route
+app.use('/uservotes', userVotesRoute);
 
 
 // conf production mode

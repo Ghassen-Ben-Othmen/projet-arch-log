@@ -41,6 +41,9 @@ export class SidebarComponent implements OnInit {
   infoElection(id: string): void{
     this.router.navigate(['home/info-election', id]);
   }
+  getHistorique(): void{
+    this.router.navigate(['home/historique']);
+  }
 
   confirmModalDelete(id: string): void{
     

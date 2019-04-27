@@ -9,6 +9,7 @@ import { UpdateCategorieComponent } from './components/home/update-categorie/upd
 import { AddElectionComponent } from './components/home/add-election/add-election.component';
 import { InfoElectionComponent } from './components/home/info-election/info-election.component';
 import { UpdateElectionComponent } from './components/home/update-election/update-election.component';
+import { HistoriqueComponent } from './components/home/historique/historique.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -18,7 +19,8 @@ const routes: Routes = [
     { path: 'update-categorie/:id', component: UpdateCategorieComponent },
     { path: 'add-election', component: AddElectionComponent },
     { path: 'info-election/:id', component: InfoElectionComponent },
-    { path: 'update-election/:id', component: UpdateElectionComponent }
+    { path: 'update-election/:id', component: UpdateElectionComponent },
+    { path: 'historique', component: HistoriqueComponent }
   ] }
 ];
 

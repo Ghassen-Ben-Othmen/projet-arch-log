@@ -8,12 +8,12 @@ const userSchema = mongose.Schema({
     cin: {type: Number, required: true },
     mdp: {type: String, required: true},
     ville: {type: String, required: true},
-    role: {type: String, required: true},
-    votes: [
-        {
-            id_election: {type: mongose.Schema.Types.ObjectId, required: true}
-        }
-    ]
+    role: {type: String, required: true}
+    //votes: [
+      //  {
+        //    id_election: {type: mongose.Schema.Types.ObjectId, required: true}
+        //}
+    //]
 });
 
 

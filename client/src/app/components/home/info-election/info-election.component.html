@@ -1,15 +1,97 @@
 <div class="row">
   <div class="col-md-12">
-    <p class="lead float-left pt-3">
-      {{election.nom}} :
-      <span *ngIf="checkDate() === 'now'">En cours!</span>
-      <span *ngIf="checkDate() === 'not yet'">Pas encore!</span>
-      <span *ngIf="checkDate() === 'ended'">Terminée!</span>
-    </p>
+
+    <!--
+  *****************************************************************************************
+-->
+
+    <div class="col-md-6 col-lg-6 col-sm-12">
+      <section class="pb-5 pl-5 float-right">
+
+        <div class="col-lg-5 my-4">
+
+          <mdb-card style="width: 400px;">
+            <mdb-card-body>
+              <p class="h1 text-center">
+                Election
+              </p>
+              <br>
+              <div class="text-center">
+                <label> {{election.nom}} </label>
+                <span *ngIf="checkDate() === 'now'"> En cours!</span>
+                <span *ngIf="checkDate() === 'not yet'">Pas encore!</span>
+                <span *ngIf="checkDate() === 'ended'">Terminée</span>
+              </div>
+              <div>
+                <label> Date début </label>
+                <br>
+                {{election.date_debut}}
+
+              </div>
+              <div>
+                <label> Date début </label>
+                <br>
+                {{election.date_fin}}
+
+              </div>
+
+            </mdb-card-body>
+          </mdb-card>
+
+        </div>
+
+      </section>
+    </div>
+
+
+    <div class="col-md-6 col-lg-6 col-sm-12">
+      <p class="pt-5 ml-5" *ngIf="election.candidat.length === 0"><i>Pas de candidats pour cette élection!</i></p>
+      <section *ngFor="let candidat of election.candidat" class="pb-5 pl-5 float-right">
+        <div class="col-lg-5 my-4">
+          <mdb-card class="mb-5" style="width: 350px; height: 250px;">
+            <mdb-card-body>
+              <p class="h3 text-center">
+                Candidat
+              </p>
+              <div *ngIf="candidat.image !== ''" class="text-center">
+                <img style="width: 80px; height: 80px;" [src]="img_src+'/election/file/'+election._id+candidat._id"
+                  class="rounded" alt="...">
+              </div>
+              <br>
+              <div>
+                <label> Nom </label>
+                {{candidat.nom}}
+              </div>
+              <div>
+                <label> Nombre de votes </label>
+                {{candidat.nb_votes}}
+              </div>
+              <div>
+                <button *ngIf="checkDate() === 'now' && checkVote() === false" type="button" mdbBtn color="info" mdbWavesEffect
+                  (click)="voter(candidat._id)">Voter pour ce candidat</button>
+              </div>
+            </mdb-card-body>
+          </mdb-card>
+
+        </div>
+
+      </section>
+    </div>
+
+
+
+
+    <!--
+  *****************************************************************************************
+-->
+
+
+
     <div class="float-right">
-      <button type="button" mdbBtn color="info" mdbWavesEffect (click)="updateElectionForm()">Editer</button>
-      <button type="button" mdbBtn color="danger" mdbWavesEffect (click)="deleteElectionModal()">Supprimer</button>
+      <button *ngIf="tokenService.isLoggedIn() && userService.user.role === 'admin'" type="button" mdbBtn color="info"
+        mdbWavesEffect (click)="updateElectionForm()">Editer</button>
+      <button *ngIf="tokenService.isLoggedIn() && userService.user.role === 'admin'" type="button" mdbBtn color="danger"
+        mdbWavesEffect (click)="deleteElectionModal()">Supprimer</button>
     </div>
   </div>
 </div>
-

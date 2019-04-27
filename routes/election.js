@@ -110,6 +110,35 @@ router.get('/:id', verifToken, (req, res) => {
     })
 })
 
+
+
+
+// get elections by category
+router.get('/getByCategory/:id', verifToken, (req, res) => {
+
+    let id = req.params.id;
+
+    electionModel.find({id_categorie: id}).exec()
+    .then(doc => {
+        if(!doc){
+            res.status(400).json({
+                message: 'Election Introuvable'
+            });
+        }
+        else{
+            res.status(200).json({
+                elections: doc
+            });
+        }
+    })
+    .catch(err => {
+        console.log(err);
+    })
+})
+
+
+
+
 // update election
 router.put('/update/:id', verifToken, (req, res) => {
 
@@ -246,6 +275,48 @@ router.put('/update-nom-candidat', verifToken, (req, res) => {
             console.log(err);
         })
 });
+
+// update nombre de votes candidat
+router.put('/update-nbvotes-candidat/:id_election', (req, res) => {
+
+    let id_election = req.params.id_election;
+    let id_candidat = req.body.id_candidat;
+
+    electionModel.findOne({
+            _id: id_election
+        }).lean().exec()
+        .then(doc => {
+            if (!doc) {
+                res.status(400).json({
+                    message: 'Election introuvable'
+                });
+            } else {
+                doc.candidat = doc.candidat.map(c => {
+                    if(c._id == id_candidat){
+                        
+                        c.nb_votes = c.nb_votes+1;
+                    }
+                    return c;
+                });
+
+                let election = new electionModel(doc);
+
+                electionModel.updateOne({
+                        _id: election._id
+                    }, election).exec()
+                    .then(result => {
+                        res.status(200).json({
+                            election
+                        });
+                    });
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        })
+});
+
+
 
 // update image candidat
 router.put('/upload/:id_election/:id_candidat', verifToken, (req, res) => {

@@ -12,6 +12,7 @@ export class ElectionService {
   private uri = isDevMode() ? 'http://localhost:3000' : window.location.origin;
 
   private elections: Election[];
+
   private headers: HttpHeaders;
 
   constructor(private http: HttpClient,
@@ -58,11 +59,21 @@ export class ElectionService {
     return this.http.put(`${this.uri}/election/update-nom-candidat`, request, {headers: this.headers});
   }
 
+  //update nombre de votes de candidat
+  updateNbVotesCandidat(id_election : string, id_candidat:string): Observable<any>{
+    return this.http.put(`${this.uri}/election/update-nbvotes-candidat/${id_election}`, {id_candidat}, {headers: this.headers});
+  }
+
   uploadImage(file: File, id_candidat: string, id_election: string): Observable<any>{
     let fd: FormData = new FormData();
     fd.append("file", file, file.name);
 
     return this.http.put(`${this.uri}/election/upload/${id_election}/${id_candidat}`, fd, {headers: this.headers});
+  }
+
+  //get elections of the same category
+  getByCategorie(id:string):Observable<Election[]>{
+    return this.http.get<Election[]>(`${this.uri}/election/getByCategory/${id}`, {headers: this.headers});
   }
 
   

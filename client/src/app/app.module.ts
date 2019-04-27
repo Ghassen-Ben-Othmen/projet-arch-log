@@ -19,6 +19,7 @@ import { UpdateCategorieComponent } from './components/home/update-categorie/upd
 import { AddElectionComponent } from './components/home/add-election/add-election.component';
 import { UpdateElectionComponent } from './components/home/update-election/update-election.component';
 import { InfoElectionComponent } from './components/home/info-election/info-election.component';
+import { HistoriqueComponent } from './components/home/historique/historique.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { InfoElectionComponent } from './components/home/info-election/info-elec
     UpdateCategorieComponent,
     AddElectionComponent,
     UpdateElectionComponent,
-    InfoElectionComponent
+    InfoElectionComponent,
+    HistoriqueComponent
   ],
   imports: [
     BrowserModule,

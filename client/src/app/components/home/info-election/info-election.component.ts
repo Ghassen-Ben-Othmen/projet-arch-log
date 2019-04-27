@@ -6,6 +6,11 @@ import { MDBModalService, MDBModalRef } from 'angular-bootstrap-md';
 import { ConfirmDeleteComponent } from '../../confirm-delete/confirm-delete.component';
 import { CategorieService } from 'src/app/services/categorie.service';
 import { ToastrService } from 'ngx-toastr';
+import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/models/user';
+import { TokenService } from 'src/app/services/token.service';
+import { UserVotes } from 'src/app/models/user-votes';
+import { UserVotesService } from 'src/app/services/user-votes.service';
 
 @Component({
   selector: 'app-info-election',
@@ -22,10 +27,16 @@ export class InfoElectionComponent implements OnInit {
               private router: Router,
               private modalService: MDBModalService,
               private categorieService: CategorieService,
-              private notifService: ToastrService) {
+              private notifService: ToastrService,
+              private userService : UserService,
+              private tokenService : TokenService,
+              private userVotesService : UserVotesService) {
     this.election = new Election();
    }
 
+   user : User;
+   userVotes : UserVotes;
+   votes : UserVotes[]=[];
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(params => {
       let id = params.get('id');
@@ -40,6 +51,32 @@ export class InfoElectionComponent implements OnInit {
     });
   }
 
+voter(id_candidat: string):void{
+    this.userService.getUser(this.userService.user._id).subscribe(res=>{
+        this.user = res["user"];
+        
+        this.userVotesService.addElection(this.election._id,this.userService.user._id).subscribe(res=>{
+          this.userVotes = res["userVotes"];
+        });
+        this.electionService.updateNbVotesCandidat(this.election._id,id_candidat).subscribe(res=>{
+
+        });
+    });
+    this.router.navigate(['home']);
+}
+  checkVote(): boolean{
+
+    this.userVotesService.getVotes(this.userService.user._id).subscribe(res=>{
+      this.votes = res["votes"];
+      this.votes.forEach(vote=>{
+        if(vote.id_election === this.election._id){
+          return false;
+        }
+      });
+  });
+    return true;
+  }
+
   checkDate(): string{
     let now = new Date();
     let election_date_deb = new Date(this.election.date_debut);
@@ -51,7 +88,7 @@ export class InfoElectionComponent implements OnInit {
     if(election_date_fin < now){
       return 'ended';
     }
-    if(election_date_deb >= now && election_date_fin <= now){
+    if(election_date_deb <= now && election_date_fin >= now){
       return 'now';
     }
 
@@ -81,7 +118,7 @@ export class InfoElectionComponent implements OnInit {
           this.modalRef.hide();
           this.categorieService.getCategories();
           this.router.navigate(['home']);
-          this.notifService.success('Election supprimée', 'Election', { progressBar: true });
+          this.notifService.success('Election supprimee', 'Election', { progressBar: true });
         },
           err => {
             console.log(err);

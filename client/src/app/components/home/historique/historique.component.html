@@ -1,0 +1,40 @@
+
+<div class="row">
+    <div  class="col-md-6 col-lg-6 col-sm-12">
+      <p *ngIf="elections.length === 0"  class="pt-5 ml-5"> Vous n'avez pas participé à aucunne élection!</p>
+        <section *ngFor="let election of elections" class="pb-5 pl-5 float-right">
+  
+          <div (click)="consulter(election._id)" class="col-lg-5 my-4">
+  
+            <mdb-card style="width: 400px;">
+              <mdb-card-body>
+                <p class="h1 text-center">
+                  Election
+                </p>
+                <br>
+                <div class="text-center">
+                  <label> {{election.nom}} </label>
+                  
+                </div>
+                <div>
+                  <label> Date début </label>
+                  <br>
+                  {{election.date_debut}}
+  
+                </div>
+                <div>
+                  <label> Date début </label>
+                  <br>
+                  {{election.date_fin}}
+  
+                </div>
+  
+              </mdb-card-body>
+            </mdb-card>
+  
+          </div>
+  
+        </section>
+      </div>
+
+</div>

@@ -3,8 +3,12 @@
     <app-sidebar></app-sidebar>
   </div>
   <div class="col-md-9 margin">
-    <div class="container">
       <router-outlet></router-outlet>
+    elections
+      <div *ngFor="let elec of elections">
+        {{elec.nom}}
+
+      
     </div>
   </div>
 
