@@ -28,7 +28,7 @@ export class InfoElectionComponent implements OnInit {
               private modalService: MDBModalService,
               private categorieService: CategorieService,
               private notifService: ToastrService,
-              private userService : UserService,
+              public userService : UserService,
               public tokenService : TokenService,
               private userVotesService : UserVotesService) {
     this.election = new Election();
