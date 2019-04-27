@@ -8,7 +8,7 @@ const url = require('./config/keys');
 const userRoute = require('./routes/user');
 const categorieRoute = require('./routes/categorie');
 const electionRoute = require('./routes/election');
-const userVotesRoute = require('./routes/uservotes');
+const userVotesRoute = require('./routes/userVotes');
 
 // setting app 
 const app = express();

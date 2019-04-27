@@ -277,7 +277,7 @@ router.put('/update-nom-candidat', verifToken, (req, res) => {
 });
 
 // update nombre de votes candidat
-router.put('/update-nbvotes-candidat/:id_election', (req, res) => {
+router.put('/update-nbvotes-candidat/:id_election', verifToken, (req, res) => {
 
     let id_election = req.params.id_election;
     let id_candidat = req.body.id_candidat;

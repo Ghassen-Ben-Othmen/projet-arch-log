@@ -3,17 +3,17 @@ const jwt = require('jsonwebtoken');
 
 const userVotesModel = require('../models/UserVotes');
 const mapper = require('../util/mapping');
+const verifToken = require('../middleware/check-auth');
 
 // router const 
 const router = express.Router();
 
 // add user Vote
-router.post('/add-election/:id_election', (req,res)=>{
+router.post('/add-election/:id_election' ,verifToken, (req,res)=>{
     let id_election = req.params.id_election;
     let id_user = req.body.id_user;
     //let id_user = user._id;
-    console.log(id_user);
-    console.log(id_election);
+    
     let userVotes = new userVotesModel();
     userVotes.id_election=id_election;
     userVotes.id_user=id_user;
@@ -42,7 +42,7 @@ router.post('/add-election/:id_election', (req,res)=>{
 });
 
 //get user Votes of a user
-router.get('/votes/:id', (req,res)=>{
+router.get('/votes/:id', verifToken, (req, res) => {
     let id = req.params.id;
 
     userVotesModel.find({id_user : id}).exec()

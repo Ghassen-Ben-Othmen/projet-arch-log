@@ -21,6 +21,7 @@ export class InfoElectionComponent implements OnInit {
 
   public election: Election;
   public modalRef: MDBModalRef;
+  public voted: boolean;
 
   constructor(private activatedRoute: ActivatedRoute,
               private electionService: ElectionService,
@@ -32,6 +33,7 @@ export class InfoElectionComponent implements OnInit {
               public tokenService : TokenService,
               private userVotesService : UserVotesService) {
     this.election = new Election();
+    this.voted = false;
    }
 
    user : User;
@@ -43,6 +45,7 @@ export class InfoElectionComponent implements OnInit {
       this.electionService.getElection(id).subscribe(res => {
         const key = 'election';
         this.election = res[key];
+        this.checkVote();
       },
       err => {
         this.router.navigate(['home']);
@@ -64,17 +67,17 @@ voter(id_candidat: string):void{
     });
     this.router.navigate(['home']);
 }
-  checkVote(): boolean{
+  checkVote(): void{
 
     this.userVotesService.getVotes(this.userService.user._id).subscribe(res=>{
       this.votes = res["votes"];
       this.votes.forEach(vote=>{
         if(vote.id_election === this.election._id){
-          return false;
+          this.voted = true;
         }
       });
+      
   });
-    return true;
   }
 
   checkDate(): string{

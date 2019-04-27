@@ -67,7 +67,7 @@
                 {{candidat.nb_votes}}
               </div>
               <div>
-                <button *ngIf="checkDate() === 'now' && checkVote() === false" type="button" mdbBtn color="info" mdbWavesEffect
+                <button *ngIf="(checkDate() === 'now') && (voted === false) && (userService.user.role === 'user')" type="button" mdbBtn color="info" mdbWavesEffect
                   (click)="voter(candidat._id)">Voter pour ce candidat</button>
               </div>
             </mdb-card-body>
