@@ -17,7 +17,6 @@ export class AppComponent {
       }
       if(routerEvent instanceof NavigationEnd || routerEvent instanceof NavigationError ||
         routerEvent instanceof NavigationCancel){
-
           this.showLoadingIndicator = false;
         }
     });
