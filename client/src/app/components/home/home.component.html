@@ -3,13 +3,23 @@
     <app-sidebar></app-sidebar>
   </div>
   <div class="col-md-9 margin">
-      <router-outlet></router-outlet>
-    elections
-      <div *ngFor="let elec of elections">
-        {{elec.nom}}
-
-      
+    <div *ngIf="router.url === '/home'">
+      <h2 class="h1 py-3 font-weight-bold text-center">Bienvenue, la <strong class="text-uppercase">tunisie</strong> vous appelle! </h2>
+      <mdb-carousel [animation]="'slide'">
+        <mdb-carousel-item>
+          <img class="d-block w-100 h-50" [src]="img_src+'/election/file/tun1'" alt="First slide">
+        </mdb-carousel-item>
+        <mdb-carousel-item>
+          <img class="d-block w-100 h-50" [src]="img_src+'/election/file/tun2'" alt="Second slide">
+        </mdb-carousel-item>
+        <mdb-carousel-item>
+          <img class="d-block w-100 h-50" [src]="img_src+'/election/file/tun3'" alt="Third slide">
+        </mdb-carousel-item>
+        <mdb-carousel-item>
+          <img class="d-block w-100 h-50" [src]="img_src+'/election/file/tun4'" alt="Fourth slide">
+        </mdb-carousel-item>
+      </mdb-carousel>
     </div>
+    <router-outlet></router-outlet>
   </div>
-
 </div>

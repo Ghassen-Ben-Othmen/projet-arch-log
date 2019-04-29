@@ -20,6 +20,7 @@ import { AddElectionComponent } from './components/home/add-election/add-electio
 import { UpdateElectionComponent } from './components/home/update-election/update-election.component';
 import { InfoElectionComponent } from './components/home/info-election/info-election.component';
 import { HistoriqueComponent } from './components/home/historique/historique.component';
+import { ResultsComponent } from './components/home/info-election/results/results.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { HistoriqueComponent } from './components/home/historique/historique.com
     AddElectionComponent,
     UpdateElectionComponent,
     InfoElectionComponent,
-    HistoriqueComponent
+    HistoriqueComponent,
+    ResultsComponent
   ],
   imports: [
     BrowserModule,

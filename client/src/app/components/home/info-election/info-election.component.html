@@ -1,97 +1,79 @@
 <div class="row">
-  <div class="col-md-12">
+  <div class="container">
+    <div class="col-md-12 col-lg-12 col-sm-12">
+      <p class="h2 d-inline mr-3">{{election.nom}}</p>
+      <span *ngIf="checkDate() === 'now'">
+        <mdb-badge pill="true" success="true">En cours!</mdb-badge>
+      </span>
+      <span *ngIf="checkDate() === 'not yet'">
+        <mdb-badge pill="true" warning="true">Pas encore!</mdb-badge>
+      </span>
+      <span *ngIf="checkDate() === 'ended'">
+        <mdb-badge pill="true" danger="true">Terminée!</mdb-badge>
+      </span>
+      <div *ngIf="userService.user.role === 'admin'" class="float-right">
+        <button *ngIf="tokenService.isLoggedIn() && userService.user.role === 'admin'" size="sm" type="button" mdbBtn
+          color="info" mdbWavesEffect (click)="updateElectionForm()">Editer</button>
+        <button *ngIf="tokenService.isLoggedIn() && userService.user.role === 'admin'" size="sm" type="button" mdbBtn
+          color="danger" mdbWavesEffect (click)="deleteElectionModal()">Supprimer</button>
+      </div>
+      
+    </div>
+  </div>
+</div>
+<div *ngIf="checkDate() === 'now' && userService.user.role === 'user' && voted === false" class="row">
+  <div class="container mt-5 ml-4">
+    <p class="h3 mb-3">Candidats :</p>
+    <div>
+      <form #form="ngForm">
+        <div class="row">
+          <div *ngFor="let candidat of election.candidat" class="col-md-6 col-lg-6 col-sm-12">
+            <mdb-card class="mb-5">
 
-    <!--
-  *****************************************************************************************
--->
+              <mdb-card-body>
+                <div class="row">
+                  <div class="col-md-3 col-lg-3 col-sm-3">
+                    <div *ngIf="candidat.image !== ''" class="text-center">
+                      <img style="width: 60px; height: 60px;"
+                        [src]="img_src+'/election/file/'+election._id+candidat._id" class="rounded" alt="...">
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-lg-6 col-sm-6 mt-3">
+                    <p class="lead">{{candidat.nom}}</p>
+                  </div>
+                  <div class="col-md-3 col-lg-3 col-sm-3">
+                    <div class="custom-control custom-radio custom-control-inline mt-3 ml-5">
+                      <input type="radio" class="custom-control-input" [id]="candidat._id" [value]="candidat._id"
+                        name="candidat" ngModel mdbInput>
+                      <label class="custom-control-label" [for]="candidat._id"></label>
+                    </div>
+                  </div>
+                </div>
+              </mdb-card-body>
 
-    <div class="col-md-6 col-lg-6 col-sm-12">
-      <section class="pb-5 pl-5 float-right">
-
-        <div class="col-lg-5 my-4">
-
-          <mdb-card style="width: 400px;">
-            <mdb-card-body>
-              <p class="h1 text-center">
-                Election
-              </p>
-              <br>
-              <div class="text-center">
-                <label> {{election.nom}} </label>
-                <span *ngIf="checkDate() === 'now'"> En cours!</span>
-                <span *ngIf="checkDate() === 'not yet'">Pas encore!</span>
-                <span *ngIf="checkDate() === 'ended'">Terminée</span>
-              </div>
-              <div>
-                <label> Date début </label>
-                <br>
-                {{election.date_debut}}
-
-              </div>
-              <div>
-                <label> Date début </label>
-                <br>
-                {{election.date_fin}}
-
-              </div>
-
-            </mdb-card-body>
-          </mdb-card>
-
+            </mdb-card>
+          </div>
         </div>
 
-      </section>
-    </div>
-
-
-    <div class="col-md-6 col-lg-6 col-sm-12">
-      <p class="pt-5 ml-5" *ngIf="election.candidat.length === 0"><i>Pas de candidats pour cette élection!</i></p>
-      <section *ngFor="let candidat of election.candidat" class="pb-5 pl-5 float-right">
-        <div class="col-lg-5 my-4">
-          <mdb-card class="mb-5" style="width: 350px; height: 250px;">
-            <mdb-card-body>
-              <p class="h3 text-center">
-                Candidat
-              </p>
-             <!--<div *ngIf="candidat.image !== ''" class="text-center">
-                <img style="width: 80px; height: 80px;" [src]="img_src+'/election/file/'+election._id+candidat._id"
-                  class="rounded" alt="...">
-              </div>--> 
-              <br>
-              <div>
-                <label> Nom </label>
-                {{candidat.nom}}
-              </div>
-              <div>
-                <label> Nombre de votes </label>
-                {{candidat.nb_votes}}
-              </div>
-              <div>
-                <button *ngIf="(checkDate() === 'now') && (voted === false) && (userService.user.role === 'user')" type="button" mdbBtn color="info" mdbWavesEffect
-                  (click)="voter(candidat._id)">Voter pour ce candidat</button>
-              </div>
-            </mdb-card-body>
-          </mdb-card>
-
+        <div class="row">
+          <div class="text-center margin">
+            <button mdbBtn color="light-blue" size="lg" class="waves-effect" mdbWavesEffect (click)="voter(form)">
+              <mdb-icon fas icon="vote-yea"></mdb-icon>&nbsp;&nbsp;Voter
+            </button>
+          </div>
         </div>
-
-      </section>
+      </form>
     </div>
+  </div>
+</div>
 
-
-
-
-    <!--
-  *****************************************************************************************
--->
-
-
-
-    <div class="float-right">
-      <button *ngIf="tokenService.isLoggedIn() && userService.user.role === 'admin'" type="button" mdbBtn color="info"
-        mdbWavesEffect (click)="updateElectionForm()">Editer</button>
-      <button *ngIf="tokenService.isLoggedIn() && userService.user.role === 'admin'" type="button" mdbBtn color="danger"
-        mdbWavesEffect (click)="deleteElectionModal()">Supprimer</button>
+<div class="row mt-5">
+  <div class="container">
+    <div class="col-md-12 col-lg-12 col-sm-12">
+      <div>
+        <p class="h3">Resultats :</p>
+      </div>
+      <app-results [election]="election"></app-results>
     </div>
   </div>
 </div>

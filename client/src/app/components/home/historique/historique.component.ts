@@ -14,14 +14,17 @@ import { Router } from '@angular/router';
 })
 export class HistoriqueComponent implements OnInit {
 
-  constructor(private userService:  UserService, private electionService : ElectionService,
-    private userVotesService : UserVotesService,
-    private router : Router) { }
-
-    //votes of connected user
-  votes : UserVotes[] = [] ;
+  //votes of connected user
+  votes: UserVotes[] = [];
   //elections voted by user
-  elections : Election[] = [];
+  elections: Election[] = [];
+
+  constructor(private userService:  UserService, 
+              private electionService : ElectionService,
+              private userVotesService : UserVotesService,
+              private router : Router) { }
+
+  
   ngOnInit() {
 
     this.userVotesService.getVotes(this.userService.user._id).subscribe(res=>{
@@ -35,13 +38,11 @@ export class HistoriqueComponent implements OnInit {
     });
 
   }
+
+  
   consulter(id_election: string):void{
     this.router.navigate(['home/info-election', id_election]);
   }
-  
-  
-
-
 
 
 }

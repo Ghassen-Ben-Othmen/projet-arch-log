@@ -1,40 +1,30 @@
-
 <div class="row">
-    <div  class="col-md-6 col-lg-6 col-sm-12">
-      <p *ngIf="elections.length === 0"  class="pt-5 ml-5"> Vous n'avez pas participé à aucunne élection!</p>
-        <section *ngFor="let election of elections" class="pb-5 pl-5 float-right">
-  
-          <div (click)="consulter(election._id)" class="col-lg-5 my-4">
-  
-            <mdb-card style="width: 400px;">
-              <mdb-card-body>
-                <p class="h1 text-center">
-                  Election
-                </p>
-                <br>
-                <div class="text-center">
-                  <label> {{election.nom}} </label>
-                  
-                </div>
-                <div>
-                  <label> Date début </label>
-                  <br>
-                  {{election.date_debut}}
-  
-                </div>
-                <div>
-                  <label> Date début </label>
-                  <br>
-                  {{election.date_fin}}
-  
-                </div>
-  
-              </mdb-card-body>
-            </mdb-card>
-  
-          </div>
-  
-        </section>
-      </div>
-
+  <p *ngIf="elections.length === 0" class="pt-5 ml-5"><i> Vous n'avez pas participé à aucune élection!</i></p>
+  <div *ngFor="let election of elections" class="col-md-6 col-lg-6 col-sm-12 container mb-5">
+    <mdb-card style="width: 20rem;">
+      <mdb-card-body>
+        <mdb-card-title>
+          <h5>{{election.nom}}</h5>
+        </mdb-card-title>
+        <mdb-card-text>
+          <table>
+            <tr>
+              <td>Date début :</td>
+              <td>
+                <mdb-badge info="true">{{election.date_debut | date: 'yyyy-MM-dd'}}</mdb-badge>
+              </td>
+            </tr>
+            <tr>
+              <td>Date fin :</td>
+              <td>
+                <mdb-badge info="true">{{election.date_fin | date: 'yyyy-MM-dd'}}</mdb-badge>
+              </td>
+            </tr>
+          </table>
+        </mdb-card-text>
+        <a size="sm" mdbBtn color="primary" (click)="consulter(election._id)">Plus de détails</a>
+      </mdb-card-body>
+    </mdb-card>
+  </div>
 </div>
+

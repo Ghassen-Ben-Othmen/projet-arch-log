@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, isDevMode } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Election } from 'src/app/models/election';
 import { ElectionService } from 'src/app/services/election.service';
@@ -11,6 +11,7 @@ import { User } from 'src/app/models/user';
 import { TokenService } from 'src/app/services/token.service';
 import { UserVotes } from 'src/app/models/user-votes';
 import { UserVotesService } from 'src/app/services/user-votes.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-info-election',
@@ -22,6 +23,11 @@ export class InfoElectionComponent implements OnInit {
   public election: Election;
   public modalRef: MDBModalRef;
   public voted: boolean;
+  public img_src: string;
+
+  user: User;
+  userVotes: UserVotes;
+  votes: UserVotes[] = [];
 
   constructor(private activatedRoute: ActivatedRoute,
               private electionService: ElectionService,
@@ -33,12 +39,10 @@ export class InfoElectionComponent implements OnInit {
               public tokenService : TokenService,
               private userVotesService : UserVotesService) {
     this.election = new Election();
-    this.voted = false;
+    this.voted = true;
+    this.img_src = isDevMode() ? 'http://localhost:3000' : window.location.origin;
    }
 
-   user : User;
-   userVotes : UserVotes;
-   votes : UserVotes[]=[];
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(params => {
       let id = params.get('id');
@@ -54,29 +58,39 @@ export class InfoElectionComponent implements OnInit {
     });
   }
 
-voter(id_candidat: string):void{
-    this.userService.getUser(this.userService.user._id).subscribe(res=>{
+  voter(form: NgForm):void{
+
+    if(form.value.candidat !== ''){
+      const id_candidat = form.value.candidat;
+      this.userService.getUser(this.userService.user._id).subscribe(res => {
         this.user = res["user"];
-        
-        this.userVotesService.addElection(this.election._id,this.userService.user._id).subscribe(res=>{
+
+        this.userVotesService.addElection(this.election._id, this.userService.user._id).subscribe(res => {
           this.userVotes = res["userVotes"];
         });
-        this.electionService.updateNbVotesCandidat(this.election._id,id_candidat).subscribe(res=>{
-
+        this.electionService.updateNbVotesCandidat(this.election._id, id_candidat).subscribe(res => {
+          this.notifService.success('Vous avez bien voté', 'Voter', {progressBar: true});
         });
-    });
-    this.router.navigate(['home']);
-}
+      });
+      this.router.navigate(['home']);
+    }
+    else{
+      this.notifService.error('Vous devez choisir un candidat pour voter', 'Voter', {progressBar: true});
+    }
+  }
   checkVote(): void{
 
     this.userVotesService.getVotes(this.userService.user._id).subscribe(res=>{
+      let find = false;
       this.votes = res["votes"];
       this.votes.forEach(vote=>{
         if(vote.id_election === this.election._id){
           this.voted = true;
+          find = true;
         }
       });
-      
+      if(!find)
+        this.voted = false;
   });
   }
 

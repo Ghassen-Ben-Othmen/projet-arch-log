@@ -53,4 +53,7 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['home/add-election']);
   }
 
+  getHistorique(): void {
+    this.router.navigate(['home/historique']);
+  }
 }
