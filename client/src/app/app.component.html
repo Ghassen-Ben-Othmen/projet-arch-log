@@ -1,2 +1,8 @@
 <app-navbar></app-navbar>
+
 <router-outlet></router-outlet>
+<div *ngIf="showLoadingIndicator" class="d-flex center">
+  <div class="spinner-border text-danger" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
